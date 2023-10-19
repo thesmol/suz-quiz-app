@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+
+* {
+    font-family: "Montserrat", "sans-serif";
+}
+
+.input {
+    border-radius: 8px;
+    border: 1px solid #d8e9ff;
+    padding: 7px;
+    font-size: 16px;
+}
+
+.button {
+    padding: 7px;
+    border-radius: 8px;
+    border: none;
+    color: #ffffff;
+    background: #3F51B5;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.button:hover {
+    background: #2c3b91;
+}
+
+.container {
+    border-radius: 10px;
+    border: 1px solid #d8e9ff;
+    background-color: #f1f7ff;
+    padding: 15px;
+    margin: 5px 0px 5px 0px;
+}
+
+.react-quiz-container .result-answer-wrapper {
+    border-radius: 15px;
+    background-color: #d4e5fb;
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+}
+
+.react-quiz-container .result-answer-wrapper h3 {
+    background-color: transparent;
+}
+
+.react-quiz-container .result-answer-wrapper .explanation {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.react-quiz-container .startQuizWrapper .startQuizBtn {
+    font-size: 15px;
+    border-radius: 10px;
+    line-height: 1.35135;
+    color: #ffffff;
+    background-color: #3fb56c;
+    border: none;
+}
+
+.react-quiz-container .startQuizWrapper .startQuizBtn:hover {
+    background-color: #25864a;
+}
+
+.react-quiz-container .questionWrapper .btn {
+    border-radius: 10px;
+}
+
+.react-quiz-container .questionModal .alert {
+    border-radius: 10px;
+}
+
+.react-quiz-container .quiz-synopsis {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.react-quiz-container {
+    border-radius: 10px;
+    border: 1px solid #d8e9ff;
+    background-color: #f1f7ff;
+    padding: 15px;
+}
+
+.app {
+    width: 100vw;
+    display: flex; 
+    justify-content: space-around;
+    min-width: 450px;
+}
+
+.app > div:last-child {
+    width: 50%;
+}
+@media screen and (width <=900px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .app > div:last-child {
+        width: 100%;
+    }
+
+}

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 
-const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
 
+
+const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
+    const [fileName, setFileName] = useState('Файл не выбран');
     let quizData = null;
 
     const handleChange = (e) => {
@@ -17,6 +19,8 @@ const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
 
     const handleFileUpload = e => {
         const file = e.target.files[0];
+        setFileName(file.name);
+
         const reader = new FileReader();
         reader.onload = (evt) => {
             const bstr = evt.target.result;
@@ -68,16 +72,34 @@ const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <label>Количество вопросов в тесте</label>
-            <span style={{ fontSize: '10px', marginBottom: '10px' }}>Укажите количество вопросов перед загрузкой вопросов</span>
-            <input
-                type="number"
-                value={count}
-                onChange={handleChange}
-                min="1" />
-            <label style={{ marginTop: '15px', marginBottom: '10px' }}>Таблица с вопросами</label>
-            <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-            <a style={{ fontSize: '12px', color: 'black', marginTop: '5px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать шаблон</a>
+            <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style = {{marginBottom: '10px'}}>
+                    <label style = {{marginRight: "10px"}}>Количество вопросов в тесте</label>
+                    <input
+                        className='input'
+                        style = {{width: '50px'}}
+                        type="number"
+                        value={count}
+                        onChange={handleChange}
+                        min="1"
+                    />
+                </div>
+                <span style={{ fontSize: '12px', marginBottom: '10px' }}>*укажите количество вопросов перед загрузкой вопросов</span>
+
+            </div>
+
+            <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+                <label style={{ marginBottom: '20px' }}>Таблица с вопросами</label>
+
+                <input type="file" id="actual-btn" hidden accept=".xlsx, .xls" onChange={handleFileUpload} />
+                <div>
+                    <label className="button" htmlFor="actual-btn">Выберите файл</label>
+                    <span id="file-chosen" style={{ marginLeft: '5px', fontSize: '14px' }}>{fileName}</span>
+                </div>
+
+                <a style={{ fontSize: '14px', color: 'black', marginTop: '10px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать шаблон</a>
+            </div>
+
         </div>
     );
 };

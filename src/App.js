@@ -24,16 +24,17 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px 20px 20px 20px' }}>
-        <div style={{ marginBottom: '25px', marginTop: '10px' }}>
+    <div className = "app">
+      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
+        <div className="container">
           <label>Имя: </label>
           <input
-            style={{ marginLeft: '5px', width: '80%'}}
+            className='input'
+            style={{ marginLeft: '5px' }}
             type='text'
             placeholder='Вася Пупкин'
             value={nameTyped}
-            onChange={(e) => {setNameTyped(e.target.value)}}
+            onChange={(e) => { setNameTyped(e.target.value) }}
           />
         </div>
 
@@ -42,10 +43,14 @@ function App() {
           count={count}
           handleCountChange={setCount}
         />
-        <button style={{ marginTop: '40px', marginBottom: '10px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
-        <button onClick={() => setReload(!reload)}>Перепройти тест</button>
+
+        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+          <button className="button" style={{ marginBottom: '10px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
+          <button className="button" onClick={() => setReload(!reload)}>Перепройти тест</button>
+        </div>
+
       </div>
-      {quizData && <div>
+      {quizData && <div security={{ display: 'flex', flexDirection: 'column' }}>
         <Quiz
           key={reload}
           quiz={quizData}
@@ -58,9 +63,9 @@ function App() {
         />
 
         {quizComplete &&
-          <div style={{ margin: '50px 20px 20px 20px', }}>
+          <button className='button' style={{ marginLeft: '20px', marginBottom: '50px' }}>
             Скачать результаты
-          </div>
+          </button>
         }
       </div>}
     </div>
