@@ -11,6 +11,7 @@ function App() {
   const [quizResult, setQuizResult] = useState(null);
   const [nameTyped, setNameTyped] = useState('');
 
+
   const getResult = (obj) => {
     console.log(obj);
     setQuizComplete(true);
@@ -24,8 +25,8 @@ function App() {
   }
 
   return (
-    <div className = "app">
-      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
+    <div className="app">
+      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }} id="first-column">
         <div className="container">
           <label>Имя: </label>
           <input
@@ -44,9 +45,9 @@ function App() {
           handleCountChange={setCount}
         />
 
-        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
-          <button className="button" style={{ marginBottom: '10px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
-          <button className="button" onClick={() => setReload(!reload)}>Перепройти тест</button>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <button className="button" style={{ marginBottom: '15px', width: '200px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
+          <button className="button" style={{ width: '200px' }} onClick={() => setReload(!reload)}>Перепройти тест</button>
         </div>
 
       </div>
@@ -63,7 +64,7 @@ function App() {
         />
 
         {quizComplete &&
-          <button className='button' style={{ marginLeft: '20px', marginBottom: '50px' }}>
+          <button className='button' style={{ marginLeft: '20px', marginBottom: '50px', width: '200px' }}>
             Скачать результаты
           </button>
         }

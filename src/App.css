@@ -82,17 +82,24 @@
     border: 1px solid #d8e9ff;
     background-color: #f1f7ff;
     padding: 15px;
+    max-width: 840px;
 }
 
 .app {
-    width: 100vw;
     display: flex; 
-    justify-content: space-around;
+    justify-content: center;
     min-width: 450px;
+}
+
+#first-column > div:first-child {
+    margin-top: 0;
 }
 
 .app > div:last-child {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
 }
 @media screen and (width <=900px) {
     .app {
