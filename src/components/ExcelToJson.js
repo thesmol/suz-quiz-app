@@ -18,6 +18,9 @@ const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
     };
 
     const handleFileUpload = e => {
+        if (e.target.files.length === 0) {
+            return;
+        }
         const file = e.target.files[0];
         setFileName(file.name);
 
@@ -73,11 +76,11 @@ const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style = {{marginBottom: '10px'}}>
-                    <label style = {{marginRight: "10px"}}>Количество вопросов в тесте</label>
+                <div style={{ marginBottom: '10px' }}>
+                    <label style={{ marginRight: "10px" }}>Количество вопросов в тесте</label>
                     <input
                         className='input'
-                        style = {{width: '50px'}}
+                        style={{ width: '50px' }}
                         type="number"
                         value={count}
                         onChange={handleChange}
