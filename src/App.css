@@ -83,6 +83,7 @@
     background-color: #f1f7ff;
     padding: 15px;
     max-width: 840px;
+    min-width: 50vw;
     width: auto;
 }
 
@@ -90,6 +91,7 @@
     display: flex; 
     justify-content: center;
     min-width: 450px;
+    width: 100vw;
 }
 
 #first-column > div:first-child {
@@ -97,11 +99,16 @@
 }
 
 .app > div:last-child {
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     height: fit-content;
 }
+
+#fix {
+    display: none;
+}
+
 @media screen and (width <=900px) {
     .app {
         flex-direction: column;
@@ -111,4 +118,7 @@
         width: 100%;
     }
 
+    #fix {
+        display: block;
+    }
 }
