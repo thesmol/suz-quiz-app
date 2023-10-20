@@ -18,6 +18,42 @@ function App() {
     setQuizResult(obj);
   }
 
+  const handleDataDownload = () => {
+    if (!nameTyped) {
+      alert('Заполните поле имени, перед тем как скачать результат');
+      return;
+    }
+
+    let resultText = `Имя прошедшего тест: ${nameTyped}\n`
+    resultText += `Количество правильных ответов: ${quizResult.numberOfCorrectAnswers}\n`;
+    resultText += `Количество ошибочных ответов: ${quizResult.numberOfIncorrectAnswers}\n`;
+    resultText += `Количество вопросов: ${quizResult.numberOfQuestions}\n`;
+    resultText += `Всего очков: ${quizResult.totalPoints}\n`;
+    resultText += `Полученные очки: ${quizResult.correctPoints}\n\n`;
+
+    quizResult.questions.forEach((question, index) => {
+      resultText += `Вопрос ${index + 1}: ${question.question}\n`;
+      resultText += `Варианты ответов:\n`;
+      question.answers.forEach((answer, answerIndex) => {
+        resultText += `   ${answerIndex + 1}) ${answer}\n`;
+      })
+      resultText += `Правильный ответ: ${question.correctAnswer}\n`;
+      resultText += `Выбранный ответ: ${quizResult.userInput[index]}\n\n`;
+    });
+
+    const blob = new Blob([resultText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'quiz_results.txt';
+    link.click();
+
+    // The URL.revokeObjectURL() static method releases an existing object URL which was previously created by calling URL.createObjectURL().
+    // Let the browser know not to keep the reference to the file any longer.
+    URL.revokeObjectURL(url);
+  };
+
   let quizData = null;
 
   if (quiz !== null) {
@@ -64,7 +100,7 @@ function App() {
         />
 
         {quizComplete &&
-          <button className='button' style={{ marginLeft: '20px', marginBottom: '50px', width: '200px' }}>
+          <button className='button' onClick={() => handleDataDownload()} style={{ marginLeft: '20px', marginBottom: '50px', width: '200px' }}>
             Скачать результаты
           </button>
         }
