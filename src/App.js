@@ -13,7 +13,6 @@ function App() {
 
 
   const getResult = (obj) => {
-    console.log(obj);
     setQuizComplete(true);
     setQuizResult(obj);
   }
@@ -79,6 +78,7 @@ function App() {
           handleNewQuize={setQuiz}
           count={count}
           handleCountChange={setCount}
+          handleReload = {setReload}
         />
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

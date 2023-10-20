@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 
 
 
-const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
+const ExcelToJson = ({ handleNewQuize, count, handleCountChange, handleReload }) => {
     const [fileName, setFileName] = useState('Файл не выбран');
     let quizData = null;
 
@@ -18,6 +18,7 @@ const ExcelToJson = ({ handleNewQuize, count, handleCountChange }) => {
     };
 
     const handleFileUpload = e => {
+        handleReload(prevState => !prevState )
         if (e.target.files.length === 0) {
             return;
         }
