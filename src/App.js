@@ -78,7 +78,7 @@ function App() {
           handleNewQuize={setQuiz}
           count={count}
           handleCountChange={setCount}
-          handleReload = {setReload}
+          handleReload={setReload}
         />
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -105,6 +105,7 @@ function App() {
           </button>
         }
       </div>}
+      <div style={{ width: '100%'}} />
     </div>
   );
 }
