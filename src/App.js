@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Quiz from 'react-quiz-component';
 import './App.css';
 import ExcelToJson from './components/ExcelToJson';
@@ -10,12 +10,55 @@ function App() {
   const [quizComplete, setQuizComplete] = useState(false);
   const [quizResult, setQuizResult] = useState(null);
   const [nameTyped, setNameTyped] = useState('');
-
+  const [grade, setGrade] = useState(null);
 
   const getResult = (obj) => {
     setQuizComplete(true);
     setQuizResult(obj);
+
+        // Преобразуем строки в числа
+        let totalPoints = parseInt(obj.totalPoints);
+        let correctPoints = parseInt(obj.correctPoints);
+    
+        // Вычисляем процент правильных ответов
+        let percentage = (correctPoints / totalPoints) * 100;
+    
+        // Присваиваем оценку на основе процента
+        let grade;
+        switch (true) {
+          case (percentage >= 80):
+            grade = 5;
+            break;
+          case (percentage >= 60):
+            grade = 4;
+            break;
+          case (percentage >= 40):
+            grade = 3;
+            break;
+          case (percentage >= 20):
+            grade = 2;
+            break;
+          default:
+            grade = 1;
+        }
+        setGrade(grade);
   }
+
+  const handleReload = () => {
+    setReload(prevState => !prevState);
+    setQuizResult(null);
+    setQuizComplete(false);
+    setGrade(null);
+  }
+
+  useEffect(() => {
+    if (grade) {
+      let h2Elements = document.getElementsByTagName('h2');
+      if (h2Elements.length > 1) {
+        h2Elements[1].textContent += ` Оценка: ${grade}`;
+      }
+    }
+  }, [grade]);
 
   const handleDataDownload = () => {
     if (!nameTyped) {
@@ -29,6 +72,9 @@ function App() {
     resultText += `Количество вопросов: ${quizResult.numberOfQuestions}\n`;
     resultText += `Всего очков: ${quizResult.totalPoints}\n`;
     resultText += `Полученные очки: ${quizResult.correctPoints}\n\n`;
+
+    // Добавляем оценку в текст результата
+    resultText += `Оценка: ${grade}\n\n`;
 
     quizResult.questions.forEach((question, index) => {
       resultText += `Вопрос ${index + 1}: ${question.question}\n`;
@@ -61,7 +107,7 @@ function App() {
 
   return (
     <div className="app">
-      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }} id="first-column">
+      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px', minWidth: '37vw' }} id="first-column">
         <div className="container">
           <label>Имя: </label>
           <input
@@ -78,12 +124,14 @@ function App() {
           handleNewQuize={setQuiz}
           count={count}
           handleCountChange={setCount}
-          handleReload={setReload}
+          handleReload={handleReload}
+          handleNewTry={setQuizComplete}
+          handleNewResult={setQuizResult}
         />
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <button className="button" style={{ marginBottom: '15px', width: '200px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
-          <button className="button" style={{ width: '200px' }} onClick={() => setReload(!reload)}>Перепройти тест</button>
+          <button className="button" style={{ width: '200px' }} onClick={() => handleReload()}>Перепройти тест</button>
         </div>
 
       </div>
@@ -105,7 +153,7 @@ function App() {
           </button>
         }
       </div>}
-      <div style={{ width: '100%'}} />
+      <div style={{ width: '100%' }} id="fix" />
     </div>
   );
 }
