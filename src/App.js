@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Quiz from 'react-quiz-component';
 import './App.css';
 import ExcelToJson from './components/ExcelToJson';
+import Instruction from './components/Instruction';
+import * as XLSX from 'xlsx';
+import { instractionText } from "./instructionText"
 
 function App() {
   const [reload, setReload] = useState(false);
@@ -16,32 +19,37 @@ function App() {
     setQuizComplete(true);
     setQuizResult(obj);
 
-        // Преобразуем строки в числа
-        let totalPoints = parseInt(obj.totalPoints);
-        let correctPoints = parseInt(obj.correctPoints);
-    
-        // Вычисляем процент правильных ответов
-        let percentage = (correctPoints / totalPoints) * 100;
-    
-        // Присваиваем оценку на основе процента
-        let grade;
-        switch (true) {
-          case (percentage >= 80):
-            grade = 5;
-            break;
-          case (percentage >= 60):
-            grade = 4;
-            break;
-          case (percentage >= 40):
-            grade = 3;
-            break;
-          case (percentage >= 20):
-            grade = 2;
-            break;
-          default:
-            grade = 1;
-        }
-        setGrade(grade);
+    // Преобразуем строки в числа
+    let totalPoints = parseInt(obj.totalPoints);
+    let correctPoints = parseInt(obj.correctPoints);
+
+    // Вычисляем процент правильных ответов
+    let percentage = (correctPoints / totalPoints) * 100;
+
+    // Присваиваем оценку на основе процента
+    let grade;
+    switch (true) {
+      case (percentage >= 80):
+        grade = 5;
+        break;
+      case (percentage >= 60):
+        grade = 4;
+        break;
+      case (percentage >= 40):
+        grade = 3;
+        break;
+      case (percentage >= 20):
+        grade = 2;
+        break;
+      default:
+        grade = 1;
+    }
+    setGrade(grade);
+
+    let h2Elements = document.getElementsByTagName('h2');
+    if (h2Elements.length > 1 && !h2Elements[1].textContent.includes('Оценка:')) {
+      h2Elements[1].textContent += ` Оценка: ${grade}`;
+    }
   }
 
   const handleReload = () => {
@@ -51,53 +59,84 @@ function App() {
     setGrade(null);
   }
 
-  useEffect(() => {
-    if (grade) {
-      let h2Elements = document.getElementsByTagName('h2');
-      if (h2Elements.length > 1) {
-        h2Elements[1].textContent += ` Оценка: ${grade}`;
-      }
-    }
-  }, [grade]);
+  const handleCountChange = (e) => {
+    setCount(e.target.value);
+    handleReload();
+    let numberOfQs = { "nrOfQuestions": null };
+    numberOfQs["nrOfQuestions"] = String(e.target.value);
 
-  const handleDataDownload = () => {
+    if (quiz !== null) {
+      setQuiz(prevState => ({ ...prevState, ...numberOfQs }));
+    }
+  }
+
+  // const handleDataDownloadTXT = () => {
+  //   if (!nameTyped) {
+  //     alert('Заполните поле имени, перед тем как скачать результат');
+  //     return;
+  //   }
+
+  //   let resultText = `Имя прошедшего тест: ${nameTyped}\n`
+  //   resultText += `Количество правильных ответов: ${quizResult.numberOfCorrectAnswers}\n`;
+  //   resultText += `Количество ошибочных ответов: ${quizResult.numberOfIncorrectAnswers}\n`;
+  //   resultText += `Количество вопросов: ${quizResult.numberOfQuestions}\n`;
+  //   resultText += `Всего очков: ${quizResult.totalPoints}\n`;
+  //   resultText += `Полученные очки: ${quizResult.correctPoints}\n\n`;
+
+  //   // Добавляем оценку в текст результата
+  //   resultText += `Оценка: ${grade}\n\n`;
+
+  //   quizResult.questions.forEach((question, index) => {
+  //     resultText += `Вопрос ${index + 1}: ${question.question}\n`;
+  //     resultText += `Варианты ответов:\n`;
+  //     question.answers.forEach((answer, answerIndex) => {
+  //       resultText += `   ${answerIndex + 1}) ${answer}\n`;
+  //     })
+  //     resultText += `Правильный ответ: ${question.correctAnswer}\n`;
+  //     resultText += `Выбранный ответ: ${quizResult.userInput[index]}\n\n`;
+  //   });
+
+  //   const blob = new Blob([resultText], { type: 'text/plain' });
+  //   const url = URL.createObjectURL(blob);
+
+  //   const link = document.createElement('a');
+  //   link.href = url;
+  //   link.download = 'quiz_results.txt';
+  //   link.click();
+
+  //   URL.revokeObjectURL(url);
+  // };
+
+  const handleDataDownloadXLSX = () => {
     if (!nameTyped) {
       alert('Заполните поле имени, перед тем как скачать результат');
       return;
     }
 
-    let resultText = `Имя прошедшего тест: ${nameTyped}\n`
-    resultText += `Количество правильных ответов: ${quizResult.numberOfCorrectAnswers}\n`;
-    resultText += `Количество ошибочных ответов: ${quizResult.numberOfIncorrectAnswers}\n`;
-    resultText += `Количество вопросов: ${quizResult.numberOfQuestions}\n`;
-    resultText += `Всего очков: ${quizResult.totalPoints}\n`;
-    resultText += `Полученные очки: ${quizResult.correctPoints}\n\n`;
-
-    // Добавляем оценку в текст результата
-    resultText += `Оценка: ${grade}\n\n`;
+    let data = [
+      { 'Заголовок': 'Имя прошедшего тест', 'Значение': nameTyped },
+      { 'Заголовок': 'Количество правильных ответов', 'Значение': quizResult.numberOfCorrectAnswers },
+      { 'Заголовок': 'Количество ошибочных ответов', 'Значение': quizResult.numberOfIncorrectAnswers },
+      { 'Заголовок': 'Количество вопросов', 'Значение': quizResult.numberOfQuestions },
+      { 'Заголовок': 'Всего очков', 'Значение': quizResult.totalPoints },
+      { 'Заголовок': 'Полученные очки', 'Значение': quizResult.correctPoints },
+      { 'Заголовок': 'Оценка', 'Значение': grade }
+    ];
 
     quizResult.questions.forEach((question, index) => {
-      resultText += `Вопрос ${index + 1}: ${question.question}\n`;
-      resultText += `Варианты ответов:\n`;
+      data.push({ 'Заголовок': `Вопрос ${index + 1}`, 'Значение': question.question });
       question.answers.forEach((answer, answerIndex) => {
-        resultText += `   ${answerIndex + 1}) ${answer}\n`;
+        data.push({ 'Заголовок': `Вариант ответа ${answerIndex + 1}`, 'Значение': answer });
       })
-      resultText += `Правильный ответ: ${question.correctAnswer}\n`;
-      resultText += `Выбранный ответ: ${quizResult.userInput[index]}\n\n`;
+      data.push({ 'Заголовок': 'Правильный ответ', 'Значение': question.correctAnswer });
+      data.push({ 'Заголовок': 'Выбранный ответ', 'Значение': quizResult.userInput[index] });
     });
 
-    const blob = new Blob([resultText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'quiz_results.txt';
-    link.click();
-
-    // The URL.revokeObjectURL() static method releases an existing object URL which was previously created by calling URL.createObjectURL().
-    // Let the browser know not to keep the reference to the file any longer.
-    URL.revokeObjectURL(url);
-  };
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Quiz Results");
+    XLSX.writeFile(workbook, 'quiz_results.xlsx');
+  }
 
   let quizData = null;
 
@@ -105,9 +144,17 @@ function App() {
     quizData = quiz;
   }
 
+  const modalStyles = {
+    button: 'button',
+    conteiner: 'container'
+  }
+
   return (
     <div className="app">
       <div style={{ display: 'flex', flexDirection: 'column', margin: '20px', minWidth: '37vw' }} id="first-column">
+        <div className='container'>
+          <Instruction styles={modalStyles} instractionText={instractionText} />
+        </div>
         <div className="container">
           <label>Имя: </label>
           <input
@@ -120,10 +167,24 @@ function App() {
           />
         </div>
 
+        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ marginBottom: '10px' }}>
+            <label style={{ marginRight: "10px" }}>Количество вопросов в тесте</label>
+            <input
+              className='input'
+              style={{ width: '50px' }}
+              type="number"
+              value={count}
+              onChange={handleCountChange}
+              min="1"
+            />
+          </div>
+          <span style={{ fontSize: '12px', marginBottom: '10px' }}>*укажите количество вопросов перед загрузкой вопросов</span>
+        </div>
+
         <ExcelToJson
           handleNewQuize={setQuiz}
           count={count}
-          handleCountChange={setCount}
           handleReload={handleReload}
           handleNewTry={setQuizComplete}
           handleNewResult={setQuizResult}
@@ -148,7 +209,7 @@ function App() {
         />
 
         {quizComplete &&
-          <button className='button' onClick={() => handleDataDownload()} style={{ marginLeft: '20px', marginBottom: '50px', width: '200px' }}>
+          <button className='button' onClick={() => handleDataDownloadXLSX()} style={{ marginLeft: '20px', marginBottom: '50px', width: '200px' }}>
             Скачать результаты
           </button>
         }
