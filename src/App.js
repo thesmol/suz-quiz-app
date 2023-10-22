@@ -182,13 +182,23 @@ function App() {
           <span style={{ fontSize: '12px', marginBottom: '10px' }}>*укажите количество вопросов перед загрузкой вопросов</span>
         </div>
 
-        <ExcelToJson
-          handleNewQuize={setQuiz}
-          count={count}
-          handleReload={handleReload}
-          handleNewTry={setQuizComplete}
-          handleNewResult={setQuizResult}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+            <ExcelToJson
+              handleNewQuize={setQuiz}
+              count={count}
+              handleReload={handleReload}
+              handleNewTry={setQuizComplete}
+              handleNewResult={setQuizResult}
+            />
+
+            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
+              <span>Генерация JSON файла с вопросами</span>
+              <button className='button' style = {{width: '145.19px', marginTop: '10px'}}>Сгенерировать</button>
+            </div>
+          </div>
+        </div>
+
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <button className="button" style={{ marginBottom: '15px', width: '200px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>

@@ -87,20 +87,17 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
-                <label style={{ marginBottom: '20px' }}>Таблица с вопросами</label>
+        <>
+            <label style={{ marginBottom: '20px' }}>Таблица с вопросами</label>
 
-                <input type="file" id="actual-btn" hidden accept=".xlsx, .xls" onChange={handleFileUpload} />
-                <div>
-                    <label className="button" htmlFor="actual-btn">Выберите файл</label>
-                    <span id="file-chosen" style={{ marginLeft: '5px', fontSize: '14px' }}>{fileName}</span>
-                </div>
-
-                <a style={{ fontSize: '14px', color: 'black', marginTop: '10px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать шаблон</a>
+            <input type="file" id="actual-btn" hidden accept=".xlsx, .xls" onChange={handleFileUpload} />
+            <div>
+                <label className="button" htmlFor="actual-btn">Выберите файл</label>
+                <span id="file-chosen" style={{ marginLeft: '5px', fontSize: '14px' }}>{fileName}</span>
             </div>
 
-        </div>
+            <a style={{ fontSize: '14px', color: 'black', marginTop: '10px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать шаблон</a>
+        </>
     );
 };
 
