@@ -192,10 +192,10 @@ function App() {
               handleNewResult={setQuizResult}
             />
 
-            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
+            {/* <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
               <span>Генерация JSON файла с вопросами</span>
               <button className='button' style = {{width: '145.19px', marginTop: '10px'}}>Сгенерировать</button>
-            </div>
+            </div> */}
           </div>
         </div>
 
