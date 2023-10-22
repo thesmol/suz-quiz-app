@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.modalWindow {
+    width: 100%;
+    max-width: 2000px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalWindow__header {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalWindow__title {
+    font-size: 24px;
+}
+
+.modalWindow__icons {
+    display: flex;
+    flex-direction: row;
+}
+
+.modalWindow__icons img {
+    height: 30px;
+    margin-left: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ReactModal__Overlay {
+    min-width: 360px;
+}
+
+.modalWindow__content {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 400ms ease-in-out;
+    background-color: transparent!important;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+    transform: translateY(100px);
+}
+
+.ReactModal__Content {
+    border: 1px solid #d8e9ff!important;
+    background: #c3ddff !important;
+    border-radius: 15px !important;
+    inset: 18px !important;
+}
+
+@media screen and (width <=750px) {
+    .ReactModal__Content {
+        inset: 10px !important;
+        padding: 10px!important;
+    }
+}
