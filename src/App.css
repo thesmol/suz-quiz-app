@@ -87,6 +87,23 @@
     width: auto;
 }
 
+.react-quiz-container .tag-container {
+    display: flex;
+    white-space: nowrap;
+    flex-wrap: wrap;
+}
+
+.react-quiz-container .selection-tag, .react-quiz-container .number-of-selection {
+    margin-right: 10px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.react-quiz-container .number-of-selection {
+    margin-left: 0px;
+}
+
+
 .app {
     display: flex; 
     justify-content: center;
