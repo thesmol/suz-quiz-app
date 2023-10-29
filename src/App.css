@@ -22,10 +22,17 @@
     text-align: center;
 }
 
+.danger {
+    background: #b5643f;
+}
+
 .button:hover {
     background: #2c3b91;
 }
 
+.danger:hover {
+    background: #de2e28;
+}
 .container {
     border-radius: 10px;
     border: 1px solid #d8e9ff;

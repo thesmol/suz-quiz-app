@@ -3,6 +3,7 @@ import Quiz from 'react-quiz-component';
 import './App.css';
 import ExcelToJson from './components/ExcelToJson';
 import Instruction from './components/Instruction';
+import ManualDataInsert from './components/ManualDataInsert';
 import * as XLSX from 'xlsx';
 import { instractionText } from "./instructionText"
 
@@ -144,17 +145,16 @@ function App() {
     quizData = quiz;
   }
 
-  const modalStyles = {
+  const styles = {
     button: 'button',
-    conteiner: 'container'
+    conteiner: 'container',
+    input: 'input',
+    danger: 'danger'
   }
 
   return (
     <div className="app">
       <div style={{ display: 'flex', flexDirection: 'column', margin: '20px', minWidth: '37vw' }} id="first-column">
-        <div className='container'>
-          <Instruction styles={modalStyles} instractionText={instractionText} />
-        </div>
         <div className="container">
           <label>Имя: </label>
           <input
@@ -182,25 +182,27 @@ function App() {
           <span style={{ fontSize: '12px', marginBottom: '10px' }}>*укажите количество вопросов перед загрузкой вопросов</span>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
-            <ExcelToJson
-              handleNewQuize={setQuiz}
-              count={count}
-              handleReload={handleReload}
-              handleNewTry={setQuizComplete}
-              handleNewResult={setQuizResult}
-            />
-
-            {/* <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column' }}>
-              <span>Генерация JSON файла с вопросами</span>
-              <button className='button' style = {{width: '145.19px', marginTop: '10px'}}>Сгенерировать</button>
-            </div> */}
-          </div>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+          <ExcelToJson
+            handleNewQuize={setQuiz}
+            count={count}
+            handleReload={handleReload}
+            handleNewTry={setQuizComplete}
+            handleNewResult={setQuizResult}
+          />
         </div>
 
+        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+          <ManualDataInsert
+            styles={styles}
+            handleNewQuiz={setQuiz}
+          />
+        </div>
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ marginBottom: '15px', width: '200px' }}>
+            <Instruction styles={styles} instractionText={instractionText} />
+          </div>
           <button className="button" style={{ marginBottom: '15px', width: '200px' }} onClick={() => window.location.reload()}>Перезапустить тест</button>
           <button className="button" style={{ width: '200px' }} onClick={() => handleReload()}>Перепройти тест</button>
         </div>
