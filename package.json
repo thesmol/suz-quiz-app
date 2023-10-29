@@ -12,6 +12,7 @@
     "react-modal": "^3.16.1",
     "react-quiz-component": "^0.5.1",
     "react-scripts": "5.0.1",
+    "react-textarea-autosize": "^8.5.3",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
