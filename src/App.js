@@ -3,7 +3,7 @@ import Quiz from 'react-quiz-component';
 import './App.css';
 import ExcelToJson from './components/ExcelToJson';
 import Instruction from './components/Instruction';
-import ManualDataInsert from './components/ManualDataInsert';
+//import ManualDataInsert from './components/ManualDataInsert';
 import * as XLSX from 'xlsx';
 import { instractionText } from "./instructionText"
 
@@ -192,12 +192,12 @@ function App() {
           />
         </div>
 
-        <div className="container" style={{ display: 'none', flexDirection: 'column' }}>
+        {/* <div className="container" style={{ display: 'none', flexDirection: 'column' }}>
           <ManualDataInsert
             styles={styles}
             handleNewQuiz={setQuiz}
           />
-        </div>
+        </div> */}
 
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div style={{ marginBottom: '15px', width: '200px' }}>
