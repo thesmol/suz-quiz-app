@@ -43,6 +43,7 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
                         "pickNumberOfSelection": 'Выберите <numberOfSelection> вариант(-а)',
                         "resultPageHeaderText": "Вы завершили тестирование. Решили верно <correctIndexLength> из <questionLength> вопросов.",
                         "resultPagePoint": 'Вы получили <correctPoints> очков из <totalPoints>.',
+                        "marksOfQuestion": '(<marks> очков)'
                     },
                     questions: []
                 };
