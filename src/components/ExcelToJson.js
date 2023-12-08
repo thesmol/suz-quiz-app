@@ -48,32 +48,36 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
                 };
 
                 for (let i = 3; i < jsonData.length; i += 9) {
-                    let correctAnswer;
-                    if (jsonData[i + 2] && jsonData[i + 2][1] === 'single') {
-                        correctAnswer = String(jsonData[i + 4][1]);
-                    } else if (jsonData[i + 2] && jsonData[i + 2][1] === 'multiple') {
-                        correctAnswer = String(jsonData[i + 4][1]).split(',').map(Number);
+                    // Check if the row contains a question and answers
+                    if (jsonData[i] && jsonData[i][1] && jsonData[i + 3] && jsonData[i + 3][1]) {
+                        let correctAnswer;
+                        if (jsonData[i + 2] && jsonData[i + 2][1] === 'single') {
+                            correctAnswer = String(jsonData[i + 4][1]);
+                        } else if (jsonData[i + 2] && jsonData[i + 2][1] === 'multiple') {
+                            correctAnswer = String(jsonData[i + 4][1]).split(',').map(Number);
+                        }
+                
+                        let answers;
+                        if (jsonData[i + 3] && jsonData[i + 3][1]) {
+                            answers = jsonData[i + 3][1].split(',');
+                        } else {
+                            answers = [];
+                        }
+                
+                        const question = {
+                            question: jsonData[i][1],
+                            questionType: jsonData[i + 1][1],
+                            answerSelectionType: jsonData[i + 2][1],
+                            answers: answers,
+                            correctAnswer: correctAnswer,
+                            messageForCorrectAnswer: jsonData[i + 5][1],
+                            messageForIncorrectAnswer: jsonData[i + 6][1],
+                            explanation: jsonData[i + 7][1],
+                            point: String(jsonData[i + 8][1])
+                        };
+                
+                        quizData.questions.push(question);
                     }
-
-                    let answers;
-                    if (jsonData[i + 3] && jsonData[i + 3][1]) {
-                        answers = jsonData[i + 3][1].split(',');
-                    } else {
-                        answers = [];
-                    }
-
-                    const question = {
-                        question: jsonData[i][1],
-                        questionType: jsonData[i + 1][1],
-                        answerSelectionType: jsonData[i + 2][1],
-                        answers: answers,
-                        correctAnswer: correctAnswer,
-                        messageForCorrectAnswer: jsonData[i + 5][1],
-                        messageForIncorrectAnswer: jsonData[i + 6][1],
-                        explanation: jsonData[i + 7][1],
-                        point: String(jsonData[i + 8][1])
-                    };
-                    quizData.questions.push(question);
                 }
                 handleNewQuize(prevState => ({ ...prevState, ...quizData }));
             } catch (error) {
