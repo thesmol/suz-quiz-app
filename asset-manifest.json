@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/suz-quiz-app/static/css/main.7e854b78.css",
-    "main.js": "/suz-quiz-app/static/js/main.bccd6102.js",
+    "main.css": "/suz-quiz-app/static/css/main.0da636fa.css",
+    "main.js": "/suz-quiz-app/static/js/main.0ea953c8.js",
     "static/js/787.288ce9d1.chunk.js": "/suz-quiz-app/static/js/787.288ce9d1.chunk.js",
     "static/media/close-modal.svg": "/suz-quiz-app/static/media/close-modal.617eb9f2cac082dff966db54692fc042.svg",
     "index.html": "/suz-quiz-app/index.html",
-    "main.7e854b78.css.map": "/suz-quiz-app/static/css/main.7e854b78.css.map",
-    "main.bccd6102.js.map": "/suz-quiz-app/static/js/main.bccd6102.js.map",
+    "main.0da636fa.css.map": "/suz-quiz-app/static/css/main.0da636fa.css.map",
+    "main.0ea953c8.js.map": "/suz-quiz-app/static/js/main.0ea953c8.js.map",
     "787.288ce9d1.chunk.js.map": "/suz-quiz-app/static/js/787.288ce9d1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7e854b78.css",
-    "static/js/main.bccd6102.js"
+    "static/css/main.0da636fa.css",
+    "static/js/main.0ea953c8.js"
   ]
 }
