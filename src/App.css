@@ -4,6 +4,10 @@
     font-family: "Montserrat", "sans-serif";
 }
 
+.filter-dropdown-select {
+    margin-top: 8px!important;
+}
+
 .input {
     border-radius: 8px;
     border: 1px solid #d8e9ff;
