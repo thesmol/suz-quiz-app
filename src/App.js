@@ -192,7 +192,7 @@ function App() {
           />
         </div>
 
-        <div className="container" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="container" style={{ display: 'none', flexDirection: 'column' }}>
           <ManualDataInsert
             styles={styles}
             handleNewQuiz={setQuiz}
@@ -215,7 +215,7 @@ function App() {
           shuffle={true}
           shuffleAnswer={true}
           showInstantFeedback={true}
-          disableSynopsis={false}
+          disableSynopsis={true}
           onComplete={getResult}
           showDefaultResult={true}
         />
