@@ -73,7 +73,7 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
                             correctAnswer: correctAnswer,
                             messageForCorrectAnswer: jsonData[i + 5][1],
                             messageForIncorrectAnswer: jsonData[i + 6][1],
-                            explanation: jsonData[i + 7][1],
+                            explanation: jsonData[i + 7][1] || '',
                             point: String(jsonData[i + 8][1])
                         };
                 
@@ -93,6 +93,13 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
     return (
         <>
             <label style={{ marginBottom: '20px' }}>Файл с вопросами (xlsx)</label>
+            <label style={{ marginBottom: '20px' }}>
+                Загрузите финальный тест, потом просто добавьте 
+                <br/> его в программу нажав на кнопку "Выберите файл".
+                <br/> Скриншот результата с оценкой мне в лс
+
+                </label>
+
 
             <input type="file" id="actual-btn" hidden accept=".xlsx, .xls" onChange={handleFileUpload} />
             <div>
@@ -100,7 +107,7 @@ const ExcelToJson = ({ handleNewQuize, count, handleReload }) => {
                 <span id="file-chosen" style={{ marginLeft: '5px', fontSize: '14px' }}>{fileName}</span>
             </div>
 
-            <a style={{ fontSize: '14px', color: 'black', marginTop: '10px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать шаблон xlsx</a>
+            <a style={{ fontSize: '14px', color: 'black', marginTop: '10px' }} href={`${process.env.PUBLIC_URL}/QuestionsTemplate.xlsx`} download>Cкачать финальный тест</a>
         </>
     );
 };

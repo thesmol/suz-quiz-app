@@ -10,7 +10,7 @@ import { instractionText } from "./instructionText"
 function App() {
   const [reload, setReload] = useState(false);
   const [quiz, setQuiz] = useState(null);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(10);
   const [quizComplete, setQuizComplete] = useState(false);
   const [quizResult, setQuizResult] = useState(null);
   const [nameTyped, setNameTyped] = useState('');
@@ -70,43 +70,6 @@ function App() {
       setQuiz(prevState => ({ ...prevState, ...numberOfQs }));
     }
   }
-
-  // const handleDataDownloadTXT = () => {
-  //   if (!nameTyped) {
-  //     alert('Заполните поле имени, перед тем как скачать результат');
-  //     return;
-  //   }
-
-  //   let resultText = `Имя прошедшего тест: ${nameTyped}\n`
-  //   resultText += `Количество правильных ответов: ${quizResult.numberOfCorrectAnswers}\n`;
-  //   resultText += `Количество ошибочных ответов: ${quizResult.numberOfIncorrectAnswers}\n`;
-  //   resultText += `Количество вопросов: ${quizResult.numberOfQuestions}\n`;
-  //   resultText += `Всего очков: ${quizResult.totalPoints}\n`;
-  //   resultText += `Полученные очки: ${quizResult.correctPoints}\n\n`;
-
-  //   // Добавляем оценку в текст результата
-  //   resultText += `Оценка: ${grade}\n\n`;
-
-  //   quizResult.questions.forEach((question, index) => {
-  //     resultText += `Вопрос ${index + 1}: ${question.question}\n`;
-  //     resultText += `Варианты ответов:\n`;
-  //     question.answers.forEach((answer, answerIndex) => {
-  //       resultText += `   ${answerIndex + 1}) ${answer}\n`;
-  //     })
-  //     resultText += `Правильный ответ: ${question.correctAnswer}\n`;
-  //     resultText += `Выбранный ответ: ${quizResult.userInput[index]}\n\n`;
-  //   });
-
-  //   const blob = new Blob([resultText], { type: 'text/plain' });
-  //   const url = URL.createObjectURL(blob);
-
-  //   const link = document.createElement('a');
-  //   link.href = url;
-  //   link.download = 'quiz_results.txt';
-  //   link.click();
-
-  //   URL.revokeObjectURL(url);
-  // };
 
   const handleDataDownloadXLSX = () => {
     if (!nameTyped) {
